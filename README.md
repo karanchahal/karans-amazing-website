@@ -13,7 +13,7 @@ Built using
 
 This repo aims to construct a Progressive Web Application using React.It is currently a work in progress.
 - [x] Use React
-- [] Service Workers
-- [] Setup Blog
-- [] About Me
-- [] Local Caching using Indexed DB
+- [ ] Service Workers
+- [ ] Setup Blog
+- [ ] About Me
+- [ ] Local Caching using Indexed DB
