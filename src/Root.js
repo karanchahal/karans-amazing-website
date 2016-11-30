@@ -1,102 +1,30 @@
 import React, { Component } from 'react';
-import { Router, Route, Link, browserHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import _ from 'lodash'
-import marked from 'marked'
+
+import Blog from './components/Blog'
+import About from './components/About'
+import Header from './components/Header'
+import Post from './components/Post'
+import Projects from './components/Projects'
 
 
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true,
-  tables: true,
-  breaks: false,
-  pedantic: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false
-})
 
 
-let data = '# Hello'
 
-
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Main App</h1>
-        <div>
-          <Link to={`/blog`}>Blog</Link>
-        </div>
-        <div>
-          <Link to={`/projects`}>Projects</Link>
-        </div>
-        <div>
-          <Link to={`/about`}>About</Link>
-        </div>
-        {this.props.children}
-      </div>
-    );
-  }
-}
-
-
-class Blog extends Component {
-  render() {
-    return (
-      <div>
-      <h1>You are at a blog</h1>
-      <h2>Blog Posts</h2>
-      <ul>
-        <li> <Link to={`/post/testpost`}>This is a test </Link> </li>
-      </ul>
-      {this.props.children}
-      </div>
-    );
-  }
-}
-
-
-class Post extends Component {
-  render() {
-    return (
-        <div>
-          <h1>You are at a post</h1>
-            <div dangerouslySetInnerHTML={{__html: marked(data)}} />;
-        </div>
-
-    );
-  }
-}
-
-class Projects extends Component {
-  render() {
-    return (
-      <h1>You are at projects</h1>
-    );
-  }
-}
-
-class About extends Component {
-  render() {
-    return (
-      <h1>About Me</h1>
-    );
-  }
-}
 
 export default class Root extends Component {
 
   render() {
     return (
       <Router history={browserHistory}>
-        <Route path="/" component={App}>
+        <Route path="/" component={Header}>
           <Route path="/blog" component={Blog}>
 
           </Route>
           <Route path="/post/:postname" component={Post}/>
           <Route path="/projects" component={Projects}/>
           <Route path="/about" component={About}/>
-
 
         </Route>
       </Router>
