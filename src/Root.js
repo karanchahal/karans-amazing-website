@@ -1,7 +1,23 @@
 import React, { Component } from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router';
-
+import _ from 'lodash'
 import marked from 'marked'
+
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false
+})
+
+
+let data = '# Hello'
+
 
 class App extends Component {
   render() {
@@ -43,7 +59,11 @@ class Blog extends Component {
 class Post extends Component {
   render() {
     return (
-      <h1>You are at a post</h1>
+        <div>
+          <h1>You are at a post</h1>
+            <div dangerouslySetInnerHTML={{__html: marked(data)}} />;
+        </div>
+
     );
   }
 }
@@ -71,7 +91,7 @@ export default class Root extends Component {
       <Router history={browserHistory}>
         <Route path="/" component={App}>
           <Route path="/blog" component={Blog}>
-            
+
           </Route>
           <Route path="/post/:postname" component={Post}/>
           <Route path="/projects" component={Projects}/>
