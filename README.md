@@ -2,7 +2,7 @@
 
 Built using 
 * React
-* Pixyll THeme Styling
+* Pixyll Theme Styling
 
 # Features
 * Blog
