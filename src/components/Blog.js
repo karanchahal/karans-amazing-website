@@ -6,6 +6,10 @@ const posts = [
   {
     description: "An introduction to extension programming wherein we make a torrent scrapping chrome extension !",
     date: "Oct 26, 2016",
+  },
+  {
+    description: "Something else !",
+    date: "Oct 21, 2016",
   }
 ];
 
