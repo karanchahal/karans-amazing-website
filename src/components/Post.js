@@ -22,25 +22,30 @@ let data = {
 
 class Post extends Component {
   render() {
+
+
+
     return (
+      <div>
+        
+        <div className="post p2 p-responsive wrap" role="main">
+            <div className="measure">
+                <div className="post-header mb2">
+                  <h1>{data.heading}</h1>
+                  <span className="post-meta">{data.date}</span><br></br>
 
-      <div className="post p2 p-responsive wrap" role="main">
-          <div className="measure">
-              <div className="post-header mb2">
-                <h1>{data.heading}</h1>
-                <span className="post-meta">{data.date}</span><br></br>
+                  <span className="post-meta small">
 
-                <span className="post-meta small">
+                    5 minute read
 
-                  5 minute read
+                  </span>
+                </div>
 
-                </span>
-              </div>
+                <article className="post-content">
 
-              <article className="post-content">
-
-                  <div dangerouslySetInnerHTML={{__html: marked(data.text)}} />
-              </article>
+                    <div dangerouslySetInnerHTML={{__html: marked(data.text)}} />
+                </article>
+          </div>
         </div>
       </div>
     );
