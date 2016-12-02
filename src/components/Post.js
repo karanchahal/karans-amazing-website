@@ -39,7 +39,7 @@ class Post extends Component {
 
               <article className="post-content">
 
-                  <div dangerouslySetInnerHTML={{__html: marked(data)}} />
+                  <div dangerouslySetInnerHTML={{__html: marked(data.text)}} />
               </article>
         </div>
       </div>
