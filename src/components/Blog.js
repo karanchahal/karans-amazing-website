@@ -26,7 +26,7 @@ class Blog extends Component {
   }
 
   shiftOutput() {
-    console.log('Hey');
+    
     let postTemp = this.state.posts;
     postTemp.push(
       {
