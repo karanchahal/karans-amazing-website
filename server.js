@@ -14,7 +14,7 @@ app.use(function (req, res, next) {
 
 
 app.get('/posts/:post', (req, res) => {
-  res.send({ markdown: fs.readFileSync(__dirname + '/posts/' + req.params.post + '.md').toString() })
+  res.send({ data: fs.readFileSync(__dirname + '/posts/' + req.params.post + '.md').toString().replace(/\r\n|\r/g, '\n') })
 })
 
 app.get('/media/:file', (req, res) => {

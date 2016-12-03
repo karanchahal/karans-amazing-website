@@ -11,10 +11,10 @@ class Header extends Component {
       height: 4,
       backgroundColor: '#88de88',
       boxShadow: '2px 0px 2px lightgreen',
-      width: 100,
+      width: window.scrollY,
       position:'fixed'
     }
-  
+
     if(this.props.location.pathname.indexOf('/post/') !== -1) {
 
       return <div style={ barStyles }></div>

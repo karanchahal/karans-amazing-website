@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import marked from 'marked'
-
+import axios from 'axios'
 
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -21,13 +21,28 @@ let data = {
 }
 
 class Post extends Component {
+
+  constructor(props)
+  {
+    super(props);
+    this.state = {'post':''}
+  }
+
+  componentWillMount() {
+
+    axios.get('http://localhost:3030/posts/' + this.props.params.postname)
+    .then(res => {
+      this.setState({post: res.data.data})
+    })
+    .catch(err => console.log(err));
+  }
+
+
   render() {
-
-
-
+      console.log(this.state)
     return (
       <div>
-        
+
         <div className="post p2 p-responsive wrap" role="main">
             <div className="measure">
                 <div className="post-header mb2">
@@ -35,15 +50,11 @@ class Post extends Component {
                   <span className="post-meta">{data.date}</span><br></br>
 
                   <span className="post-meta small">
-
                     5 minute read
-
                   </span>
                 </div>
-
                 <article className="post-content">
-
-                    <div dangerouslySetInnerHTML={{__html: marked(data.text)}} />
+                    <div dangerouslySetInnerHTML={{__html: marked(this.state.post)}} />
                 </article>
           </div>
         </div>
