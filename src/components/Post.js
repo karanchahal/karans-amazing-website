@@ -37,9 +37,14 @@ class Post extends Component {
     .catch(err => console.log(err));
   }
 
+  renderNewPost() {
+    if(window.scrollY/ (document.documentElement.scrollHeight - window.innerHeight)> 0.8) {
+      console.log('Load New Post')
+    }
+  }
 
   render() {
-      console.log(this.state)
+
     return (
       <div>
 
@@ -58,6 +63,8 @@ class Post extends Component {
                 </article>
           </div>
         </div>
+
+        {this.renderNewPost()}
       </div>
     );
   }
