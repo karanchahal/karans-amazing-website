@@ -14,9 +14,7 @@ class Header extends Component {
       width: 100,
       position:'fixed'
     }
-    console.log('yas')
-    console.log(this.props.location.pathname)
-
+  
     if(this.props.location.pathname.indexOf('/post/') !== -1) {
 
       return <div style={ barStyles }></div>

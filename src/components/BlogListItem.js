@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-class Projects extends Component {
+
+class BlogListItem extends Component {
   constructor(props) {
     super(props)
+    
   }
 
+
+
+
   render() {
-    console.log(this.props.date);
+    //console.log(this.props.date);
     return (
 
       <div className="post py3">
         <p className="post-meta">{this.props.date}</p>
-        <Link to={`/post/testpost`} className="post-link"><h3 className="h1 post-title">Lets Make A Chrome Extension</h3></Link>
+        <Link to={`/post/testpost`} className="post-link"><h3 className="h1 post-title">{this.props.title}</h3></Link>
         <p className="post-summary">
             {this.props.description}
         </p>
@@ -21,4 +26,4 @@ class Projects extends Component {
 }
 
 
-export default Projects;
+export default BlogListItem;

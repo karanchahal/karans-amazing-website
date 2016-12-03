@@ -1,17 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-
 import BlogListItem from './BlogListItem'
-const posts = [
-  {
-    description: "An introduction to extension programming wherein we make a torrent scrapping chrome extension !",
-    date: "Oct 26, 2016",
-  },
-  {
-    description: "Something else !",
-    date: "Oct 21, 2016",
-  }
-];
+import axios from 'axios'
 
 class Blog extends Component {
 
@@ -20,8 +10,15 @@ class Blog extends Component {
     super(props);
 
     this.state= {
-      posts
+      posts : []
     };
+  }
+
+  componentWillMount() {
+    axios.get('http://localhost:3030/media/descriptions.json')
+    .then(res => {
+      this.setState({posts: res.data})
+    })
   }
 
   render() {
