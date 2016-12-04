@@ -20,8 +20,7 @@ class Post extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {'post':''}
-
+    this.state = {'post':'','posts':[]}
   }
 
 
@@ -33,11 +32,17 @@ class Post extends Component {
       this.setState({post: res.data.data})
     })
     .catch(err => console.log(err));
+
+    axios.get('http://localhost:3030/media/descriptions.json')
+    .then(res => {
+      this.setState({posts: res.data})
+    })
+
   }
 
 
   render() {
-
+    console.log(this.props.posts)
     return (
       <div>
 

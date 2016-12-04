@@ -12,32 +12,15 @@ class Blog extends Component {
     this.state= {
       posts : []
     };
-    this.shiftOutput = this.shiftOutput.bind(this)
   }
 
   componentWillMount() {
-
     axios.get('http://localhost:3030/media/descriptions.json')
     .then(res => {
+      this.props.getPosts(res.data)
+
       this.setState({posts: res.data})
     })
-
-    this.interval = setInterval(this.shiftOutput, 800)
-  }
-
-  shiftOutput() {
-    
-    let postTemp = this.state.posts;
-    postTemp.push(
-      {
-        "title":"Lets boom boom Make A Chrome Extension",
-        "date": "26-11-2016",
-        "description":"An introduction to extension programming wherein we make a torrent scrapping chrome extension !",
-        "filename":"chrome-extension"
-      }
-    );
-
-    this.setState({posts: postTemp});
   }
 
   render() {
