@@ -2,20 +2,21 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import LoadingBar from './LoadingBar'
 import Blog from './Blog'
+import axios from 'axios'
 
 class Header extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      posts:[]
+      posts:{}
     }
-
-    this.getPosts = this.getPosts.bind(this)
+    this.sendPosts = this.sendPosts.bind(this)
   }
 
-  getPosts(data) {
-    this.state.posts = data
-    console.log(this.state.posts)
+  sendPosts(res) {
+    res.data.forEach((d,k) => {
+      this.state.posts[d.filename] = d
+    })
   }
 
 
@@ -38,8 +39,7 @@ class Header extends Component {
           </div>
 
         </header>
-        { React.cloneElement(this.props.children, {getPosts: this.getPosts}) }
-
+        { React.cloneElement(this.props.children, {sendPosts: this.sendPosts,posts:this.state.posts}) }
       </div>
     );
   }

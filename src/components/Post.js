@@ -20,10 +20,26 @@ class Post extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {'post':'','posts':[]}
+    this.state = {
+      'post':'',
+      'posts':[],
+      'description':{
+        'title':'',
+        'date': ''
+      }
+    }
   }
 
 
+  getPostList() {
+
+    axios.get('http://localhost:3030/media/descriptions.json')
+    .then(res => {
+      this.setState({posts: res.data})
+      this.props.sendPosts(res)
+      this.setState({description : this.props.posts[this.props.params.postname]})
+    })
+  }
 
   componentWillMount() {
 
@@ -33,10 +49,11 @@ class Post extends Component {
     })
     .catch(err => console.log(err));
 
-    axios.get('http://localhost:3030/media/descriptions.json')
-    .then(res => {
-      this.setState({posts: res.data})
-    })
+    if(this.props.posts[this.props.params.postname] == undefined) {
+      this.getPostList();
+    } else {
+      this.setState({description : this.props.posts[this.props.params.postname]});
+    }
 
   }
 
@@ -49,8 +66,8 @@ class Post extends Component {
         <div className="post p2 p-responsive wrap" role="main">
             <div className="measure">
                 <div className="post-header mb2">
-                  <h1>Chrome Extension</h1>
-                  <span className="post-meta">01/01/1970</span><br></br>
+                  <h1>{this.state.description.title}</h1>
+                  <span className="post-meta">{this.state.description.date}</span><br></br>
 
                   <span className="post-meta small">
                     5 minute read
@@ -66,5 +83,6 @@ class Post extends Component {
     );
   }
 }
+
 
 export default Post;
