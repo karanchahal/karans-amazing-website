@@ -12,7 +12,9 @@ class LoadingBar extends Component {
 
    handleScroll(e) {
      let length = ( window.scrollY/ (document.documentElement.scrollHeight - window.innerHeight)) * window.innerWidth;
+
      this.setState({ barLength: length})
+
    }
 
   componentDidMount() {

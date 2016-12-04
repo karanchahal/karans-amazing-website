@@ -58,6 +58,11 @@ class Post extends Component {
   }
 
 
+  componentDidMount() {
+    this.props.loadingBar();
+  }
+
+
   render() {
     console.log(this.props.posts)
     return (
