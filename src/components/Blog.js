@@ -24,7 +24,7 @@ class Blog extends Component {
 
 
   componentDidMount() {
-    this.props.loadingBar();
+    
   }
 
   render() {

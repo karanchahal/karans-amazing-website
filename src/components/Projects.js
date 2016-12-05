@@ -4,7 +4,7 @@ class Projects extends Component {
 
 
   componentDidMount() {
-    this.props.loadingBar();
+    
   }
 
   render() {

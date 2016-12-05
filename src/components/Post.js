@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import marked from 'marked'
 import axios from 'axios'
 
@@ -22,28 +21,22 @@ class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      'postz':[],
-      'posts':[],
-      'description':{
-        'title':'',
-        'date': ''
-      }
+      'postsCurrentlyLoaded':[],
+      'index':0,
+      'barLength':0
     }
     this.handleScroll = this.handleScroll.bind(this)
   }
 
   handleScroll(e) {
     let length = ( window.scrollY/ (document.documentElement.scrollHeight - window.innerHeight)) * window.innerWidth;
-    if(window.scrollY/ (document.documentElement.scrollHeight - window.innerHeight) > 0.9) {
-        let postTemp = this.state.postz;
-        postTemp.push({
-          description:{
-            date: '1970',
-            title: 'I am cool'
-          },
-          data: '#Hello /n I am awesome'
-        })
-        this.setState({postz: postTemp});
+
+    if(window.scrollY/ (document.documentElement.scrollHeight - window.innerHeight) > 0.9 && Math.floor(this.state.index) < this.props.postOrdering.length) {
+        console.log(this.props.postOrdering.length)
+        console.log(this.state.index)
+        let newPostfilename = this.props.postOrdering[this.state.index]
+        this.getPost(newPostfilename)
+
     }
     this.setState({ barLength: length})
 
@@ -53,34 +46,37 @@ class Post extends Component {
 
     axios.get('http://localhost:3030/media/descriptions.json')
     .then(res => {
-        this.setState({posts: res.data})
         this.props.sendPosts(res)
-        this.setState({description : this.props.posts[this.props.params.postname]})
     })
+  }
+
+  getPost(filename) {
+    axios.get('http://localhost:3030/posts/' + filename)
+    .then(res => {
+        let postTemp = this.state.postsCurrentlyLoaded
+        postTemp.push({
+          description: this.props.posts[filename],
+          data: res.data.data
+        })
+
+        this.setState({postsCurrentlyLoaded: postTemp})
+        this.setState({index:Math.floor(this.props.posts[filename].index) + 1})
+    })
+    .catch(err => console.log(err));
   }
 
   componentWillMount() {
 
-    axios.get('http://localhost:3030/posts/' + this.props.params.postname)
-    .then(res => {
-        let postTemp = this.state.postz
-        postTemp.push({
-          description: this.props.posts[this.props.params.postname],
-          data: res.data.data
-        })
-        this.setState({postz: postTemp})
-    })
-    .catch(err => console.log(err));
-        if(this.props.posts[this.props.params.postname] == undefined) {
-          this.getPostList();
-        } else {
-          this.setState({description : this.props.posts[this.props.params.postname]});
-        }
+    if(this.props.posts[this.props.params.postname] === undefined) {
+      this.getPostList();
+    }
+
+    this.getPost(this.props.params.postname);
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
-    this.props.loadingBar();
+
   }
 
   componentWillUnmount() {
@@ -88,7 +84,7 @@ class Post extends Component {
   }
 
   renderPost() {
-    return _.map(this.state.postz, (post, index) => <PostMain key={index} {...post} />);
+    return _.map(this.state.postsCurrentlyLoaded, (post, index) => <PostMain key={index} {...post} />);
   }
 
   render() {
@@ -103,17 +99,15 @@ class Post extends Component {
 
 class PostMain extends Component {
 
-  constructor(props) {
-    super(props)
-  }
+
 
   render() {
     return(
       <div className="post p2 p-responsive wrap" role="main">
         <div className="measure">
             <div className="post-header mb2">
-              <h1>Hey</h1>
-              <span className="post-meta">Babay</span><br></br>
+              <h1>{this.props.description.title}</h1>
+              <span className="post-meta">{this.props.description.date}</span><br></br>
 
               <span className="post-meta small">
                 5 minute read
@@ -123,6 +117,7 @@ class PostMain extends Component {
                 <div dangerouslySetInnerHTML={{__html: marked(this.props.data)}} />
             </article>
         </div>
+        <hr />
       </div>
     );
   }

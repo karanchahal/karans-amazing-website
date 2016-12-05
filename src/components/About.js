@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash'
 
 class About extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      'test': '<b>Hey</b>'
-    }
-  }
+
   renderWord() {
     let word = 'Hello.'
     let colorz = [
@@ -28,12 +23,7 @@ class About extends Component {
 
   render() {
 
-    let barStyle = {
-      opacity: 1,
-      transform: 'translate3d(0 px, 0px, 0px)',
-      color: '#dc6b6b'
 
-    };
     return (
 
         <div className="post p2 p-responsive wrap" role="main">
@@ -56,10 +46,7 @@ class About extends Component {
 }
 
 class AboutLetter extends Component {
-  constructor(props) {
-    super(props)
 
-  }
 
   render() {
     let barStyle = {

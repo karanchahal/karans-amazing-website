@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Route, browserHistory,IndexRoute } from 'react-router';
 import _ from 'lodash'
-
-let postCache = {'foo':'bar'};
 import BlogWrapper from './components/Blog'
 import About from './components/About'
 import Header from './components/Header'

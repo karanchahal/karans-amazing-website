@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import LoadingBar from './LoadingBar'
-import Blog from './Blog'
-import axios from 'axios'
+
 
 class Header extends Component {
   constructor(props) {
     super(props)
     this.state = {
       posts:{},
+      postOrdering:[],
       barLength:0
     }
     this.sendPosts = this.sendPosts.bind(this)
@@ -26,10 +26,15 @@ class Header extends Component {
   }
 
   sendPosts(res) {
+    let postsTemp = {}
+    let postOrderingTemp= []
     res.data.forEach((d,k) => {
-      this.state.posts[d.filename] = d
-
+      postsTemp[d.filename] = d
+      postOrderingTemp.push(d.filename)
     })
+    this.setState({posts:postsTemp,postOrdering:postOrderingTemp})
+    console.log(postsTemp)
+    console.log(postOrderingTemp)
   }
   loadingBar() {
 
@@ -75,7 +80,7 @@ class Header extends Component {
           </div>
 
         </header>
-        { React.cloneElement(this.props.children, {sendPosts: this.sendPosts,posts:this.state.posts,loadingBar:this.loadingBar}) }
+        { React.cloneElement(this.props.children, {sendPosts: this.sendPosts,posts:this.state.posts,postOrdering:this.state.postOrdering}) }
       </div>
     );
   }
