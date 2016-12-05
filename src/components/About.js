@@ -12,17 +12,19 @@ class About extends Component {
     return (
         <div className="post p2 p-responsive wrap" role="main">
           <div className="measure">
-
-            <div className="hello">
-                <span id="intro">
-                  <span style={barStyle}>H</span>
-                  <span style={barStyle}>e</span>
-                  <span style={barStyle}>l</span>
-                  <span style={barStyle}>l</span>
-                  <span style={barStyle}>o</span>
-                </span>
+            <div className="centeredContainer">
+              <div className="hello">
+                <center>
+                  <span id="intro">
+                    <span style={barStyle}>H</span>
+                    <span style={barStyle}>e</span>
+                    <span style={barStyle}>l</span>
+                    <span style={barStyle}>l</span>
+                    <span style={barStyle}>o</span>
+                  </span>
+                  </center>
               </div>
-
+            </div>
           </div>
         </div>
     );

@@ -38,7 +38,8 @@
   color:rgb(232, 192, 96);
   display:inline-block;
   font-family:CircularStd-Book, sans-serif;
-  font-size:300px;
+  font-size:25vw;
+  width: 100%;
   font-stretch:normal;
   font-style:normal;
   font-variant-caps:normal;
@@ -54,12 +55,11 @@
   opacity:1;
   padding-bottom:0px;
   padding-left:0px;
-  padding-right:0px;
+  padding-right:0%;
   padding-top:0px;
   transform:matrix(1, 0, 0, 1, 0, 0);
   user-select:none;
   vertical-align:baseline;
-  width:224.406px;
   -webkit-font-smoothing:antialiased;
 }
 button, .button { font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif; font-size: inherit; font-weight: normal; text-decoration: none; cursor: pointer; display: inline-block; box-sizing: border-box; line-height: 1.125rem; padding: 0.5rem 1rem; margin: 0; height: auto; border: 1px solid transparent; vertical-align: middle; -webkit-appearance: none; }
