@@ -2,9 +2,32 @@ import React, { Component } from 'react';
 import _ from 'lodash'
 
 class About extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      'word':'',
+      'words' : [
+        'hello',
+        'my',
+        'name',
+        'is',
+        'my',
+        'name',
+        'is',
+        'my',
+        'name',
+        'is',
+        'chika',
+        'chika',
+        'slim shady'
+      ]
+    }
+
+    this.loadWords = this.loadWords.bind(this)
+  }
 
   renderWord() {
-    let word = 'Hello.'
+
     let colorz = [
       '#e8c060',
       '#dc6b6b',
@@ -13,12 +36,27 @@ class About extends Component {
       '#33afff'
     ]
     let cIndex = 0
-    return _.map(word,(letter,index) => {
+    return _.map(this.state.word,(letter,index) => {
 
       cIndex = (cIndex+1)%colorz.length;
       return <AboutLetter key={index} color={colorz[cIndex]} letter={letter} />
     })
 
+
+  }
+
+  loadWords() {
+    this.index = (this.index+1)%this.state.words.length
+    this.setState({word:this.state.words[(this.index)]})
+  }
+
+  componentDidMount() {
+    this.index = -1;
+    this.interval = setInterval(this.loadWords,800);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {
