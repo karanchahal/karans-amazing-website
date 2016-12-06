@@ -7,19 +7,34 @@ class About extends Component {
     this.state = {
       'word':'',
       'words' : [
-        'hello',
+        '',
+        'hi',
+        '',
         'my',
         'name',
         'is',
+        '.',
+        '',
         'my',
         'name',
         'is',
+        '.',
+        '',
         'my',
         'name',
         'is',
+        '.',
+        '',
         'chika',
+        '',
         'chika',
-        'slim shady'
+        '',
+        'slim',
+        'shady',
+        'shady',
+        'shady',
+        '',
+        '',
       ]
     }
 
@@ -52,7 +67,7 @@ class About extends Component {
 
   componentDidMount() {
     this.index = -1;
-    this.interval = setInterval(this.loadWords,800);
+    this.interval = setInterval(this.loadWords,250);
   }
 
   componentWillUnmount() {
