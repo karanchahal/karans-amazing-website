@@ -70,7 +70,7 @@ class Header extends Component {
           <div className="mt2 wrap">
             <div className="measure">
 
-              <Link to={`/`} className="site-title">Karans Website</Link>
+              <Link to={`/`} className="site-title">Karan's Website</Link>
               <nav className="site-nav">
                 <Link to={`/blog`}>Blog</Link>
                 <Link to={`/projects`}>Projects</Link>

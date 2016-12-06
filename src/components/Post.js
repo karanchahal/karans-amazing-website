@@ -14,33 +14,31 @@ marked.setOptions({
   smartypants: false
 })
 
-
+let index = 0
 
 class Post extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      'postsCurrentlyLoaded':[],
-      'index':0,
-      'barLength':0
+      'postsCurrentlyLoaded':[]
     }
     this.handleScroll = this.handleScroll.bind(this)
   }
 
   handleScroll(e) {
-    let length = ( window.scrollY/ (document.documentElement.scrollHeight - window.innerHeight)) * window.innerWidth;
 
-    if(window.scrollY/ (document.documentElement.scrollHeight - window.innerHeight) > 0.9 && Math.floor(this.state.index) < this.props.postOrdering.length) {
-        console.log(this.props.postOrdering.length)
-        console.log(this.state.index)
-        let newPostfilename = this.props.postOrdering[this.state.index]
-        this.getPost(newPostfilename)
+    if(window.scrollY/ (document.documentElement.scrollHeight - window.innerHeight) > 0.9 && Math.floor(index) < this.props.postOrdering.length) {
+
+        let newPostfilename = this.props.postOrdering[index]
+        this.getPost(newPostfilename,false)
+        index++;
 
     }
-    this.setState({ barLength: length})
 
   }
+
+
 
   getPostList() {
 
@@ -50,7 +48,7 @@ class Post extends Component {
     })
   }
 
-  getPost(filename) {
+  getPost(filename,first) {
     axios.get('http://localhost:3030/posts/' + filename)
     .then(res => {
         let postTemp = this.state.postsCurrentlyLoaded
@@ -60,10 +58,15 @@ class Post extends Component {
         })
 
         this.setState({postsCurrentlyLoaded: postTemp})
-        this.setState({index:Math.floor(this.props.posts[filename].index) + 1})
+        if(first === true){
+          index = Math.floor(this.props.posts[filename].index) + 1;
+        }
+
     })
     .catch(err => console.log(err));
   }
+
+
 
   componentWillMount() {
 
@@ -71,7 +74,7 @@ class Post extends Component {
       this.getPostList();
     }
 
-    this.getPost(this.props.params.postname);
+    this.getPost(this.props.params.postname,true);
   }
 
   componentDidMount() {
