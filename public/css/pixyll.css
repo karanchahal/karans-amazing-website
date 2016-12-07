@@ -16,6 +16,24 @@
 
 */
 /* Basscss Base Buttons */
+
+.boom {
+
+    display: block;
+    height: 4px;
+    background-color: #dc6b6b;
+    box-shadow: 2px 0px 2px lightgreen;
+    width: 100%;
+    position:fixed;
+    animation-name: example;
+    animation-duration: 0.4s;
+}
+
+@keyframes example {
+  from {width: 0%;}
+  to {width: 100%;}
+}
+
 .hello {
   order-bottom-color:rgb(232, 192, 96);
   border-bottom-style:none;

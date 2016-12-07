@@ -3,9 +3,6 @@ import { Link } from 'react-router';
 
 class BlogListItem extends Component {
 
-
-
-
   render() {
     //console.log(this.props.date);
     return (

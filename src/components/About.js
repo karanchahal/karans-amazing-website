@@ -100,7 +100,6 @@ class About extends Component {
 
 class AboutLetter extends Component {
 
-
   render() {
     let barStyle = {
       opacity: 1,
@@ -110,5 +109,7 @@ class AboutLetter extends Component {
     console.log(this.props.letter)
     return ( <span style={barStyle}>{this.props.letter}</span>);
   }
+
 }
+
 export default About;
