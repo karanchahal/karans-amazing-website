@@ -14,6 +14,6 @@ Built using
 This repo aims to construct a Progressive Web Application using React.It is currently a work in progress.
 - [x] Use React
 - [x] Setup Blog
-- [ ] About Me
+- [x] About Me
 - [ ] Service Workers
 - [ ] Local Caching using Indexed DB
