@@ -49,7 +49,7 @@ class Header extends Component {
 
     return (
       <div>
-        {this.loadBar()}
+        
         <LoadingBar />
         <header className="site-header px2 px-responsive">
           <div className="mt2 wrap">
