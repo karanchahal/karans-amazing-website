@@ -20,5 +20,8 @@ app.get('/posts/:post', (req, res) => {
 app.get('/media/:file', (req, res) => {
   res.sendFile(__dirname + '/media/' + req.params.file)
 })
+app.get('/sw.js',(req,res) => {
+  res.sendFile(__dirname + 'public/sw/sw.js');
+})
 
 app.listen(3030)

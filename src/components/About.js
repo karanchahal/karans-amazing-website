@@ -106,7 +106,7 @@ class AboutLetter extends Component {
       transform: 'translate3d(0 px, 0px, 0px)',
       color: this.props.color
     }
-    console.log(this.props.letter)
+    
     return ( <span style={barStyle}>{this.props.letter}</span>);
   }
 

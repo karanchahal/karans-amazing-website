@@ -49,7 +49,7 @@ class Post extends Component {
   }
 
   getPost(filename,first) {
-    axios.get('http://localhost:3030/posts/' + filename)
+    axios.get('/posts/' + filename)
     .then(res => {
         let postTemp = this.state.postsCurrentlyLoaded
         postTemp.push({
