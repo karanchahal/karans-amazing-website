@@ -16,4 +16,7 @@ This repo aims to construct a Progressive Web Application using React.It is curr
 - [x] Setup Blog
 - [x] About Me
 - [x] Service Workers
-- [ ] Local Caching using Indexed DB
+- [x] Local Caching 
+- [ ] Indexed DB
+- [ ] Projects Section
+- [ ] UI indicators for offline use
