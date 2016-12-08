@@ -45,6 +45,29 @@ self.addEventListener('activate', function(event) {
 
 self.addEventListener('fetch', event => {
   // Skip cross-origin requests, like those for Google Analytics.
-  console.log(event.request.url)
+
+  var requestUrl = new URL(event.request.url);
+
+  if(requestUrl.origin.startsWith('http://fonts')) {
+    console.log('Serving fonts')
+    event.respondWith(caches.match(requestUrl));
+    return;
+  }
+
+  if(requestUrl.origin === location.origin) {
+
+    if (requestUrl.pathname === '/') {
+      console.log('Serving skeleton')
+      event.respondWith(caches.match(requestUrl));
+      return;
+    }
+
+    if(requestUrl.pathname.startsWith('/css') ){
+      console.log('Serving CSS');
+      event.respondWith(caches.match('/css/pixyll.css'));
+      return;
+    }
+
+  }
 
 });
