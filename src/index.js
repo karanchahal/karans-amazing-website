@@ -10,6 +10,16 @@ if (navigator.serviceWorker) {
   })
 }
 
+self.addEventListener('online',function() {
+  console.log('yay');
+})
+
+
+self.addEventListener('offline',function() {
+  console.log('nay');
+  document.body.style.backgroundColor = "lightblue";
+})
+
 ReactDOM.render(
   <Root />,
   document.getElementById('root')

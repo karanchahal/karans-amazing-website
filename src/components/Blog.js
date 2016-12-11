@@ -15,6 +15,7 @@ class Blog extends Component {
   }
 
   componentWillMount() {
+    //this.props.loadingBar()
     axios.get('http://localhost:3030/media/descriptions.json')
     .then(res => {
       this.setState({posts: res.data})
@@ -22,9 +23,13 @@ class Blog extends Component {
     })
   }
 
-
   componentDidMount() {
-    this.props.loadingBar();
+    //this.props.loadBarTrue()
+  }
+
+  componentWillUnmount() {
+  //  this.interval = setInterval(this.props.loadBarTrue(),800)
+    
   }
 
   render() {

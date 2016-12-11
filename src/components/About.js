@@ -71,6 +71,7 @@ class About extends Component {
   }
 
   componentWillUnmount() {
+    
     clearInterval(this.interval);
   }
 
@@ -106,7 +107,7 @@ class AboutLetter extends Component {
       transform: 'translate3d(0 px, 0px, 0px)',
       color: this.props.color
     }
-    
+
     return ( <span style={barStyle}>{this.props.letter}</span>);
   }
 

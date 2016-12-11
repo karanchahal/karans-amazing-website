@@ -79,7 +79,7 @@ class Post extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
-
+    
   }
 
   componentWillUnmount() {

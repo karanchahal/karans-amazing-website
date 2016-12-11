@@ -9,11 +9,10 @@ class Header extends Component {
     this.state = {
       posts:{},
       postOrdering:[],
-      barLength:0,
-      loadBar:'true'
+      barLength:0
     }
     this.sendPosts = this.sendPosts.bind(this)
-    this.loadingBar = this.loadingBar.bind(this)
+
   }
 
   sendPosts(res) {
@@ -27,29 +26,13 @@ class Header extends Component {
 
   }
 
-  loadingBar() {
-    this.setState({loadBar:'true'})
-    console.log('SHOULD CHANGE')
-  }
 
-  componentDidMount() {
-    //this.loadingBar()
-  }
-
-  loadBar() {
-    if(this.state.loadBar === 'false')
-      return <div className="boom" style={{'display':'none'}}></div>
-    else {
-      return <div className="boom" ></div>
-    }
-
-  }
 
   render() {
 
     return (
       <div>
-        
+      
         <LoadingBar />
         <header className="site-header px2 px-responsive">
           <div className="mt2 wrap">
@@ -65,7 +48,7 @@ class Header extends Component {
           </div>
 
         </header>
-        { React.cloneElement(this.props.children, {sendPosts: this.sendPosts,posts:this.state.posts,postOrdering:this.state.postOrdering,loadingBar:this.loadingBar}) }
+        { React.cloneElement(this.props.children, {sendPosts: this.sendPosts,posts:this.state.posts,postOrdering:this.state.postOrdering}) }
       </div>
     );
   }
