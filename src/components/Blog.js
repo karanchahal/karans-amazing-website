@@ -29,7 +29,7 @@ class Blog extends Component {
 
   componentWillUnmount() {
   //  this.interval = setInterval(this.props.loadBarTrue(),800)
-    
+
   }
 
   render() {

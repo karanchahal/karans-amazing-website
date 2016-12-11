@@ -35,6 +35,7 @@ class LoadingBar extends Component {
        width: this.state.barLength,
        position:'fixed'
      }
+     
 
      return <div style={ barStyles }></div>
    }

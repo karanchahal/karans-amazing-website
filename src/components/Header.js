@@ -26,14 +26,18 @@ class Header extends Component {
 
   }
 
-
+  loadScrollBar() {
+    if(this.props.location.pathname.indexOf('/post') !== -1) {
+      return <LoadingBar />
+    }
+  }
 
   render() {
 
     return (
       <div>
-      
-        <LoadingBar />
+
+        {this.loadScrollBar()}
         <header className="site-header px2 px-responsive">
           <div className="mt2 wrap">
             <div className="measure">
