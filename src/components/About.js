@@ -35,26 +35,66 @@ class About extends Component {
         'shady',
         '',
         '',
-      ]
+      ],
+      'color':[]
     }
 
     this.loadWords = this.loadWords.bind(this)
+    this.setOfflineUI = this.setOfflineUI.bind(this)
+    this.setOnlineUI = this.setOnlineUI.bind(this)
+  }
+
+  setOfflineUI() {
+    console.log('Offline!')
+    this.setState({
+      color: [
+        '#9E9E9E',
+        '#757575',
+        '#616161',
+        '#424242',
+        '#212121'
+      ]
+    })
+  }
+
+  setOnlineUI() {
+    console.log('Online!')
+    this.setState({
+      color: [
+        '#e8c060',
+        '#dc6b6b',
+        '#65c3ad',
+        '#ea9078',
+        '#33afff'
+      ]
+    })
+  }
+
+  componentWillMount() {
+
+    if(!navigator.onLine) {
+      this.setOfflineUI();
+    } else {
+      this.setOnlineUI();
+    }
+
+    window.addEventListener('offline',this.setOfflineUI);
+    window.addEventListener('online',this.setOnlineUI);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('online');
+    window.removeEventListener('offline');
   }
 
   renderWord() {
 
-    let colorz = [
-      '#e8c060',
-      '#dc6b6b',
-      '#65c3ad',
-      '#ea9078',
-      '#33afff'
-    ]
+
     let cIndex = 0
     return _.map(this.state.word,(letter,index) => {
 
-      cIndex = (cIndex+1)%colorz.length;
-      return <AboutLetter key={index} color={colorz[cIndex]} letter={letter} />
+      cIndex = (cIndex+1)%this.state.color.length;
+      return <AboutLetter key={index} color={this.state.color[cIndex]} letter={letter} />
     })
 
 
@@ -71,7 +111,7 @@ class About extends Component {
   }
 
   componentWillUnmount() {
-    
+
     clearInterval(this.interval);
   }
 
