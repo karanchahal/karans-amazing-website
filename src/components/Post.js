@@ -46,6 +46,7 @@ class Post extends Component {
     .then(res => {
         this.props.sendPosts(res)
     })
+    .catch(err => console.log(err));
   }
 
   getPost(filename,first) {
@@ -79,7 +80,7 @@ class Post extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
-    
+
   }
 
   componentWillUnmount() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './Root';
-
+import axios from 'axios'
 
 ReactDOM.render(
   <Root />,
@@ -10,8 +10,25 @@ ReactDOM.render(
 
 /* Service Worker Suff */
 if (navigator.serviceWorker) {
-  navigator.serviceWorker.register('./sw.js', {scope: '/'}).then(function() {
+  navigator.serviceWorker.register('./sw.js', {scope: '/'}).then(function(reg) {
     console.log('Registeration worked!')
+
+    reg.pushManager.subscribe({
+        userVisibleOnly: true
+    }).then(function (sub) {
+        console.log('Subscribed !')
+
+        axios.post('http://localhost:3030/endpoint',{
+          'endpoint': sub.endpoint
+        })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => console.log(err));
+
+    });
+
+
   }).catch(function() {
     console.log('Registeration failed!')
   })
