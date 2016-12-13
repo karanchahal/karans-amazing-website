@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var EndPoint = new Schema({
+var endpoint = new Schema({
     endpoint: String
 });
 
-export default EndPoint;
+var EndPoint = mongoose.model('EndPoint', endpoint);
+
+module.exports = EndPoint;

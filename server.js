@@ -1,10 +1,32 @@
 const fs = require('fs')
 const express = require('express')
 const app = express()
-const EndPoint from './models/endpoint'
+var EndPoint = require('./models/endpoint')
+const mongoose = require('mongoose')
 
-function insertEndPoint() {
-  // to be completed
+var connection = mongoose.connect('mongodb://localhost/karan-blog');
+function insertEndPoint(newEndpoint) {
+
+  EndPoint.find({endpoint:newEndpoint}, function(err,endpoint) {
+
+    if(err) {
+      return {'error':err}
+    }
+
+    if(endpoint.length == 0) {
+      let endpoint = new EndPoint({ endpoint: newEndpoint });
+
+      endpoint.save(function(err,endpoint) {
+        return {'error':err,'endpoint':endpoint}
+      })
+    }
+
+    return {'error':'Already entered endpoint'}
+
+
+  })
+
+
 }
 
 
@@ -33,8 +55,27 @@ app.get('/sw.js',(req,res) => {
 })
 
 app.post('/endpoint',(req,res) => {
-  insertEndPoint(req.body.endpoint)
-  res.send({success:true});
+  let newEndpoint = req.body.endpoint
+
+  EndPoint.find({endpoint:newEndpoint}, function(err,endpoint) {
+
+    if(err) {
+      res.send({'error':err});
+
+    }
+
+    if(endpoint.length == 0) {
+      let endpoint = new EndPoint({ endpoint: newEndpoint });
+
+      endpoint.save(function(err,endpoint) {
+        res.send({'error':err,'endpoint':endpoint})
+      })
+    } else {
+      res.send({'error':'Already entered endpoint'})
+    }
+
+
+  })
 })
 
 app.listen(3030)

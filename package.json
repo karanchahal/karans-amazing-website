@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "body-parser": "^1.15.2",
+    "mongoose": "^4.7.2",
     "react-scripts": "0.7.0"
   },
   "dependencies": {
