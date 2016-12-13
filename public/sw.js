@@ -37,6 +37,10 @@ self.addEventListener('activate', function(event) {
   );
 });
 
+self.addEventListener('push', function(event) {
+  console.log(event)
+});
+
 self.addEventListener('fetch', event => {
   // Skip cross-origin requests, like those for Google Analytics.
 

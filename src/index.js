@@ -17,7 +17,7 @@ if (navigator.serviceWorker) {
         userVisibleOnly: true
     }).then(function (sub) {
         console.log('Subscribed !')
-
+        console.log(sub.endpoint)
         axios.post('http://localhost:3030/endpoint',{
           'endpoint': sub.endpoint
         })
