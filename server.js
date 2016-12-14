@@ -80,10 +80,6 @@ var message = new gcm.Message({
 // Set up the sender with you API key
 var sender = new gcm.Sender('AAAAzriVFW0:APA91bE2RU0mFhiVnods85R9H6Z-5yL8BG4lJz1O2OqVoyYbUKD9M0PtOndd2gr6dbSyfGSBENYHgtkAq93w2JN3qmJGuIPzRtYZ1a1jqG_r6YL25krunsI1mh4URby_UkBRApQCQUKYM52xDyEeIuSsgio2VMdzVw');
 
-// Add the registration tokens of the devices you want to send to
-var registrationTokens = [];
-registrationTokens.push('e9TIo-bGqz8:APA91bEVD70O4R0fWEji2FOUuliBxJFCOg88u2R4bBalUKWeX_2HOdDGsi7ikwh8g0dT8N5Wg_W2ledG9YvA_JPJYjLzmlpQEhRfKta3qyST91c-pmReDMdhCkJEwlJLdQd5aJlhxdSu')
-
 app.get('/posts/:post', (req, res) => {
   res.send({ data: fs.readFileSync(__dirname + '/posts/' + req.params.post + '.md').toString().replace(/\r\n|\r/g, '\n') })
 })
@@ -123,8 +119,13 @@ app.get('/endpoint',(req,res) => {
       res.send({'error':err});
     }
 
-    // Send the message
-    // ... trying only once
+    var registrationTokens = []
+
+    endpoints.map((record,index) => {
+      registrationTokens.push(record.endpoint)
+    })
+
+
     sender.sendNoRetry(message, { registrationTokens: registrationTokens }, function(err, response) {
       if(err) console.error(err);
       else    console.log(response);

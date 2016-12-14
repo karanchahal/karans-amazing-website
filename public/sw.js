@@ -38,7 +38,14 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('push', function(event) {
-  console.log(event)
+  const title = "Karan's Website";
+  const options = {
+    body: 'New Post!',
+    icon: 'images/icon.png',
+    badge: 'images/badge.png'
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
 });
 
 self.addEventListener('fetch', event => {
