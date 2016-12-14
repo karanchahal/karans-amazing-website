@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "atob": "^2.0.3",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "mongoose": "^4.7.2",
@@ -19,7 +20,8 @@
     "react-markdown-file": "0.0.4",
     "react-router": "^3.0.0",
     "react-sticky": "^5.0.5",
-    "semantic-ui": "^2.2.6"
+    "semantic-ui": "^2.2.6",
+    "web-push": "^3.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

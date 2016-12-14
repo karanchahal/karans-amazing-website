@@ -3,8 +3,25 @@ const express = require('express')
 const app = express()
 var EndPoint = require('./models/endpoint')
 const mongoose = require('mongoose')
-
+var atob = require('atob')
 var connection = mongoose.connect('mongodb://localhost/karan-blog');
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, '+')
+    .replace(/_/g, '/');
+
+  const rawData = atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
+
 function insertEndPoint(newEndpoint) {
 
   EndPoint.find({endpoint:newEndpoint}, function(err,endpoint) {
@@ -43,22 +60,16 @@ app.use(function (req, res, next) {
 });
 
 
-
 var gcm = require('node-gcm');
 
+// Create a message
+// ... with default values
+var message = new gcm.Message();
+
 // ... or some given values
+
 var message = new gcm.Message({
-    collapseKey: 'demo',
-    priority: 'high',
-    contentAvailable: true,
-    delayWhileIdle: true,
-    timeToLive: 3,
-    restrictedPackageName: "somePackageName",
-    dryRun: true,
-    data: {
-        key1: 'message1',
-        key2: 'message2'
-    },
+    data: { key1: 'msg1' },
     notification: {
         title: "Hello, World",
         icon: "ic_launcher",
@@ -66,13 +77,12 @@ var message = new gcm.Message({
     }
 });
 
-
 // Set up the sender with you API key
-var sender = new gcm.Sender('AIzaSyB3GSz19aA9cNGZ6B5GStIjr2OquY6-uO0')
-// Send the message
-// ... trying only once
+var sender = new gcm.Sender('AAAAzriVFW0:APA91bE2RU0mFhiVnods85R9H6Z-5yL8BG4lJz1O2OqVoyYbUKD9M0PtOndd2gr6dbSyfGSBENYHgtkAq93w2JN3qmJGuIPzRtYZ1a1jqG_r6YL25krunsI1mh4URby_UkBRApQCQUKYM52xDyEeIuSsgio2VMdzVw');
 
-
+// Add the registration tokens of the devices you want to send to
+var registrationTokens = [];
+registrationTokens.push('e9TIo-bGqz8:APA91bEVD70O4R0fWEji2FOUuliBxJFCOg88u2R4bBalUKWeX_2HOdDGsi7ikwh8g0dT8N5Wg_W2ledG9YvA_JPJYjLzmlpQEhRfKta3qyST91c-pmReDMdhCkJEwlJLdQd5aJlhxdSu')
 
 app.get('/posts/:post', (req, res) => {
   res.send({ data: fs.readFileSync(__dirname + '/posts/' + req.params.post + '.md').toString().replace(/\r\n|\r/g, '\n') })
@@ -112,17 +122,13 @@ app.get('/endpoint',(req,res) => {
     if(err) {
       res.send({'error':err});
     }
-    let registrationTokens = ['https://android.googleapis.com/gcm/send/eq3bUwB-6S8:APA91bHcYg7C0k1pkF-LRCRFsCEUKVA0y0GX_K-gDU4bIfGscH1mP7SsDnFMyHUizWML1pChDq3Mlf8YQLLsCPTRGH6woYd-TAS2BuAHjVIwYr2pLFzuLD_LCStdaLugGp7bojMxO5Q6'];
-    /*endpoints.map((record, index) => {
-      console.log(record.endpoint)
-      registrationTokens.push(record.endpoint)
-    });*/
 
-    sender.send(message, { registrationTokens: registrationTokens }, 10, function (err, response) {
+    // Send the message
+    // ... trying only once
+    sender.sendNoRetry(message, { registrationTokens: registrationTokens }, function(err, response) {
       if(err) console.error(err);
       else    console.log(response);
     });
-
 
     res.send({'endpoints':endpoints})
   })
