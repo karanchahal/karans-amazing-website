@@ -6,13 +6,9 @@ class Projects extends Component {
     super(props)
   }
 
-  componentWillUnmount() {
-    
-  }
-
   render() {
     return (
-      <h1>You are at projects</h1>
+      <div><center><h1>You are at Projects</h1></center></div>
     );
   }
 }

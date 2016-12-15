@@ -17,6 +17,8 @@
 */
 /* Basscss Base Buttons */
 
+
+
 .boom {
 
     display: block;
@@ -56,7 +58,6 @@
   color:rgb(232, 192, 96);
   display:inline-block;
   font-family:CircularStd-Book, sans-serif;
-  font-size:20vw;
   width: 100%;
   font-stretch:normal;
   font-style:normal;

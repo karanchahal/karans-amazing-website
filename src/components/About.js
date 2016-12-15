@@ -94,7 +94,7 @@ class About extends Component {
     return _.map(this.state.word,(letter,index) => {
 
       cIndex = (cIndex+1)%this.state.color.length;
-      return <AboutLetter key={index} color={this.state.color[cIndex]} letter={letter} />
+      return <AboutLetter key={index} color={this.state.color[cIndex]} letter={letter} size='20vw' />
     })
 
 
@@ -139,13 +139,14 @@ class About extends Component {
   }
 }
 
-class AboutLetter extends Component {
+export class AboutLetter extends Component {
 
   render() {
     let barStyle = {
       opacity: 1,
       transform: 'translate3d(0 px, 0px, 0px)',
-      color: this.props.color
+      color: this.props.color,
+      fontSize:this.props.size
     }
 
     return ( <span style={barStyle}>{this.props.letter}</span>);

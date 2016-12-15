@@ -2,6 +2,7 @@ import _ from 'lodash'
 import React, { Component } from 'react';
 import marked from 'marked'
 import axios from 'axios'
+import {AboutLetter} from './About'
 
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -121,7 +122,43 @@ class PostMain extends Component {
                 <div dangerouslySetInnerHTML={{__html: marked(this.props.data)}} />
             </article>
         </div>
-        <hr />
+        <EndOfPost />
+      </div>
+    );
+  }
+}
+
+
+class EndOfPost extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      color: [
+        '#e8c060',
+        '#dc6b6b',
+        '#65c3ad',
+        '#ea9078',
+        '#33afff'
+      ]
+    }
+  }
+  renderWord() {
+    let cIndex = 0
+    return _.map('End Of Post',(letter,index) => {
+
+      cIndex = (cIndex+1)%this.state.color.length;
+      return <AboutLetter key={index} color={this.state.color[cIndex]} letter={letter} size='4vw' />
+    })
+  }
+  render() {
+    return(
+      <div className="hello" >
+        <center>
+          <span id="intro">
+          {this.renderWord()}
+          </span>
+          </center>
       </div>
     );
   }

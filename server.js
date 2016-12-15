@@ -1,49 +1,24 @@
 const fs = require('fs')
 const express = require('express')
 const app = express()
-var EndPoint = require('./models/endpoint')
 const mongoose = require('mongoose')
-var atob = require('atob')
 var connection = mongoose.connect('mongodb://localhost/karan-blog');
-
-function urlBase64ToUint8Array(base64String) {
-  const padding = '='.repeat((4 - base64String.length % 4) % 4);
-  const base64 = (base64String + padding)
-    .replace(/\-/g, '+')
-    .replace(/_/g, '/');
-
-  const rawData = atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
-
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
-  }
-  return outputArray;
-}
+var EndPoint = require('./models/endpoint')
 
 
 function insertEndPoint(newEndpoint) {
-
   EndPoint.find({endpoint:newEndpoint}, function(err,endpoint) {
-
     if(err) {
       return {'error':err}
     }
-
     if(endpoint.length == 0) {
       let endpoint = new EndPoint({ endpoint: newEndpoint });
-
       endpoint.save(function(err,endpoint) {
         return {'error':err,'endpoint':endpoint}
       })
     }
-
     return {'error':'Already entered endpoint'}
-
-
   })
-
-
 }
 
 
@@ -61,13 +36,7 @@ app.use(function (req, res, next) {
 
 
 var gcm = require('node-gcm');
-
-// Create a message
-// ... with default values
 var message = new gcm.Message();
-
-// ... or some given values
-
 var message = new gcm.Message({
     data: { key1: 'msg1' },
     notification: {
@@ -77,7 +46,6 @@ var message = new gcm.Message({
     }
 });
 
-// Set up the sender with you API key
 var sender = new gcm.Sender('AAAAzriVFW0:APA91bE2RU0mFhiVnods85R9H6Z-5yL8BG4lJz1O2OqVoyYbUKD9M0PtOndd2gr6dbSyfGSBENYHgtkAq93w2JN3qmJGuIPzRtYZ1a1jqG_r6YL25krunsI1mh4URby_UkBRApQCQUKYM52xDyEeIuSsgio2VMdzVw');
 
 app.get('/posts/:post', (req, res) => {
@@ -92,17 +60,13 @@ app.get('/sw.js',(req,res) => {
 })
 
 app.post('/endpoint',(req,res) => {
-
   let newEndpoint = req.body.endpoint
-
-
   EndPoint.find({endpoint:newEndpoint}, function(err,endpoint) {
     if(err) {
       res.send({'error':err});
     }
     if(endpoint.length == 0) {
       let endpoint = new EndPoint({ endpoint: newEndpoint });
-
       endpoint.save(function(err,endpoint) {
         res.send({'error':err,'endpoint':endpoint})
       })
@@ -113,24 +77,19 @@ app.post('/endpoint',(req,res) => {
 })
 
 
-app.get('/endpoint',(req,res) => {
+app.get('/sendPostNotif',(req,res) => {
   EndPoint.find(function(err,endpoints) {
     if(err) {
       res.send({'error':err});
     }
-
     var registrationTokens = []
-
     endpoints.map((record,index) => {
       registrationTokens.push(record.endpoint)
     })
-
-
     sender.sendNoRetry(message, { registrationTokens: registrationTokens }, function(err, response) {
       if(err) console.error(err);
       else    console.log(response);
     });
-
     res.send({'endpoints':endpoints})
   })
 })
