@@ -43,7 +43,7 @@ class Post extends Component {
 
   getPostList() {
 
-    axios.get('http://localhost:3030/media/descriptions.json')
+    axios.get('http://ec2-13-58-121-196.us-east-2.compute.amazonaws.com:3030/media/descriptions.json')
     .then(res => {
         this.props.sendPosts(res)
     })
@@ -51,7 +51,7 @@ class Post extends Component {
   }
 
   getPost(filename,first) {
-    axios.get('http://localhost:3030/posts/' + filename)
+    axios.get('http://ec2-13-58-121-196.us-east-2.compute.amazonaws.com:3030/posts/' + filename)
     .then(res => {
         let postTemp = this.state.postsCurrentlyLoaded
         postTemp.push({

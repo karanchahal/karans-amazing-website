@@ -16,7 +16,7 @@ class Blog extends Component {
 
   componentWillMount() {
     //this.props.loadingBar()
-    axios.get('http://localhost:3030/media/descriptions.json')
+    axios.get('http://ec2-13-58-121-196.us-east-2.compute.amazonaws.com:3030/media/descriptions.json')
     .then(res => {
       this.setState({posts: res.data})
       this.props.sendPosts(res)

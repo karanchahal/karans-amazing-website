@@ -42,7 +42,7 @@ class Header extends Component {
           <div className="mt2 wrap">
             <div className="measure">
 
-              <Link to={`/`} className="site-title">Karans Website</Link>
+              <Link to={`/`} className="site-title">k a r a n 's - w e b s i t e</Link>
               <nav className="site-nav">
                 <Link to={`/blog`}>Blog</Link>
                 <Link to={`/projects`}>Projects</Link>
